@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <div class="page-shell">
+        <div class="weather-app-card">
+            <header>
+                <h1>Weather Lookup</h1>
+                <p>Enter a city to see the current weather.</p>
+            </header>
+
+            <form method="POST" class="search-form">
+                <label for="city">City</label>
+                <input
+                    id="city"
+                    name="city"
+                    type="text"
+                    placeholder="e.g. London"
+                    value="{{ city }}"
+                    autocomplete="off"
+                />
+                <button type="submit">Search</button>
+            </form>
+
+            {% if error %}
+            <div class="message error">{{ error }}</div>
+            {% endif %}
+
+            {% if weather %}
+            <div class="weather-result">
+                <div class="weather-header">
+                    <div>
+                        <h2>{{ weather.city }}, {{ weather.country }}</h2>
+                        <p class="description">{{ weather.description }}</p>
+                    </div>
+                    <img src="{{ weather.icon_url }}" alt="Weather icon" />
+                </div>
+
+                <div class="weather-main">
+                    <div class="temperature">
+                        <span>{{ weather.temperature }}°C</span>
+                        <small>Feels like {{ weather.feels_like }}°C</small>
+                    </div>
+                    <ul class="weather-details">
+                        <li><strong>Humidity:</strong> {{ weather.humidity }}%</li>
+                        <li><strong>Wind:</strong> {{ weather.wind_speed }} m/s</li>
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
